@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+All Profiles
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    {% for user in users %}
+        <div class="glass content-wrapper discord-section" style="margin-top: 60px; padding: 40px;">
+            <h2 style="text-align: center;">{{ user.username }}'s Profile</h2>
+            
+            {% if user.profile_picture %}
+                <img src="{{ url_for('static', filename='uploads/' + user.profile_picture) }}"
+                     alt="Profile Picture"
+                     style="display: block; margin: 0 auto; width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+            {% else %}
+                <img src="{{ url_for('static', filename='uploads/default_profile.png') }}?v=2"
+                     alt="Default Profile Picture"
+                     style="display: block; margin: 0 auto; width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+            {% endif %}
+            <br>
+
+            <p style="text-align: center;"><strong>Email:</strong> {{ user.email }}</p>
+            <p style="text-align: center;"><strong>Discord:</strong> {{ user.discord_id }}</p>
+            <p style="text-align: center;"><strong>Rank:</strong> {{ user.level }}</p>
+            <p style="text-align: center;"><strong>Bio:</strong> {{ user.bio }}</p>
+            <p style="text-align: center;"><strong>Joined:</strong> {{ user.joined_date }}</p>
+
+            <div style="display: flex; justify-content: center;">
+                <a href="/profile/{{ user.id }}" class="cta-button">View Profile</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
