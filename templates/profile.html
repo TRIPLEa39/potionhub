@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+<div class="glass" style="max-width: 600px; margin: 40px auto; padding: 40px; text-align: center; color: white;">
+    <h2>My Profile</h2>
+    
+    {% if user.profile_picture %}
+        <img src="{{ url_for('static', filename='uploads/' + user.profile_picture) }}"
+             alt="Profile Picture"
+             style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 20px 0; object-fit: cover;">
+    {% else %}
+        <img src="{{ url_for('static', filename='uploads/default_profile.png') }}?v=2"
+             alt="Default Profile Picture"
+             style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 20px 0; object-fit: cover;">
+    {% endif %}
+
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Discord:</strong> {{ user.discord_id }}</p>
+    <p><strong>Rank:</strong> {{ user.rank }}</p>
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p><strong>Joined:</strong> {{ user.joined_date }}</p>
+
+
+
+    <form action="/update_bio" method="POST">
+        <div style="margin-top: 20px; text-align: left;">
+            <label for="bio" style="color: #ccc;"><strong>Edit Bio:</strong></label><br>
+            <textarea name="bio" id="bio" rows="3"
+                    style="width: 100%; max-width: 100%; padding: 8px 12px; font-size: 0.9em;
+                            background-color: rgba(255,255,255,0.1); color: #eee;
+                            border: 1px solid #666; border-radius: 6px; resize: vertical;
+                            font-family: inherit;"></textarea>
+            <br><br>
+            <div style="text-align: center;">
+                <button type="submit" class="cta-button">Save Bio</button>
+            </div>
+        </div>
+    </form>
+    
+    <form method="POST" action="/upload_picture" enctype="multipart/form-data" style="margin-top: 30px;">
+        <label for="profile_picture" class="form-label" style="color: #ccc;"><strong>Change Profile Picture:</strong></label><br>
+        <input type="file" name="profile_picture" accept="image/*" required
+            style="padding: 6px 10px; background-color: rgba(255,255,255,0.1); color: #eee; border-radius: 6px; border: 1px solid #666; font-size: 0.9em;">
+        <br><br>
+        <button type="submit" class="cta-button">Upload</button>
+    </form>
+
+    {% if user.profile_picture %}
+        <form method="POST" action="/remove_picture" style="margin-top: 20px;">
+            <button type="submit" class="cta-button" style="background-color: #ff4d4d;">Remove Profile Picture</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

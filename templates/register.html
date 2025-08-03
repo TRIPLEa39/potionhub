@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}PotionHub: Register{% endblock %}
+
+{% block content %}
+<div class="bg-shapes">
+    <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+    <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+</div>
+
+<div class="container">
+    <div class="glass" style="margin: 60px auto; max-width: 500px; padding: 40px; text-align: center;">
+        <h2 style="color: white; margin-bottom: 30px;">Create an Account</h2>
+
+        <form method="POST" action="/register">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password (min 8 characters)" minlength="8" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="discord_id" placeholder="Discord ID" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="cta-button" style="width: 100%;">Register</button>
+            </div>
+        </form>
+
+        <p style="margin-top: 20px; color: rgba(255,255,255,0.8);">
+            Already have an account? <a href="/login" style="color: white;">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
